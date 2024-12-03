@@ -5,7 +5,7 @@
 	import Input from '$lib/components/ui/input/input.svelte';
 	import { toast } from 'svelte-sonner';
 
-	let selectedDeviceId = $state('');
+	let selectedDeviceId = $state(browser ? (localStorage.getItem('selectedDeviceId') ?? '') : '');
 	let elevenLabsKey = $state(browser ? localStorage.getItem('elevenLabsKey') : null);
 	let text = $state('Hello World!');
 	let audio = $state<HTMLAudioElement>();
@@ -13,6 +13,12 @@
 	$effect(() => {
 		if (elevenLabsKey) {
 			localStorage.setItem('elevenLabsKey', elevenLabsKey);
+		}
+	});
+
+	$effect(() => {
+		if (selectedDeviceId) {
+			localStorage.setItem('selectedDeviceId', selectedDeviceId);
 		}
 	});
 
